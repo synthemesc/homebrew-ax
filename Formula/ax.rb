@@ -1,8 +1,8 @@
 class Ax < Formula
   desc "Expose macOS accessibility tree as JSON for AI agents"
   homepage "https://github.com/synthemesc/ax"
-  url "https://github.com/synthemesc/ax/archive/refs/tags/v1.0.0.tar.gz"
-  sha256 "8346bb27729b64fc3c86759b5156f306dc774678d7536656b0508ed27d590c56"
+  url "https://github.com/synthemesc/ax/archive/refs/tags/v1.0.1.tar.gz"
+  sha256 "e0297843c679b4fe52ec704cbe7306a6b2b0cb2db353b7929abd30b33cdd9090"
   license "MIT"
 
   depends_on :macos
