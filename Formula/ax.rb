@@ -12,22 +12,31 @@ class Ax < Formula
     axlockd_path = "#{libexec}/axlockd.app/Contents/MacOS/axlockd"
 
     # Build ax with configured axlockd path
+    # Disable code signing for Homebrew builds (project has hardcoded Team ID)
     system "xcodebuild", "build",
            "-scheme", "ax",
            "-configuration", "Release",
            "-derivedDataPath", buildpath/"build",
            "SYMROOT=#{buildpath}/build",
-           "OTHER_CFLAGS=-DAXLOCKD_PATH_VALUE='\"#{axlockd_path}\"'"
+           "CODE_SIGN_IDENTITY=-",
+           "CODE_SIGN_STYLE=Manual",
+           "CODE_SIGNING_REQUIRED=NO",
+           "CODE_SIGNING_ALLOWED=NO",
+           "GCC_PREPROCESSOR_DEFINITIONS=AXLOCKD_PATH_VALUE=\\\"#{axlockd_path}\\\""
 
     # Build axlockd
     system "xcodebuild", "build",
            "-scheme", "axlockd",
            "-configuration", "Release",
            "-derivedDataPath", buildpath/"build",
-           "SYMROOT=#{buildpath}/build"
+           "SYMROOT=#{buildpath}/build",
+           "CODE_SIGN_IDENTITY=-",
+           "CODE_SIGN_STYLE=Manual",
+           "CODE_SIGNING_REQUIRED=NO",
+           "CODE_SIGNING_ALLOWED=NO"
 
-    bin.install buildpath/"build/Build/Products/Release/ax"
-    libexec.install buildpath/"build/Build/Products/Release/axlockd.app"
+    bin.install buildpath/"build/Release/ax"
+    libexec.install buildpath/"build/Release/axlockd.app"
   end
 
   def caveats
